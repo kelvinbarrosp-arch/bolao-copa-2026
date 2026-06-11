@@ -373,6 +373,37 @@
     gap: 10px;
   }
   .save-btn-big:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,200,150,0.5); }
+  .save-block.locked-block {
+    background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(255,61,90,0.08));
+    border-color: rgba(139,92,246,0.4);
+  }
+  .save-block.locked-block h3 { color: #B8A2FF; }
+
+  /* LOCK STATES */
+  .lock-badge {
+    background: rgba(139,92,246,0.2);
+    color: #C9B6FF;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: 8px;
+    border: 1px solid rgba(139,92,246,0.4);
+    letter-spacing: 1px;
+  }
+  .match-row.locked-row {
+    opacity: 0.8;
+    background: linear-gradient(90deg, rgba(139,92,246,0.06), rgba(0,0,0,0.25));
+    border-color: rgba(139,92,246,0.3);
+  }
+  .match-row.locked-row .score-input {
+    background: rgba(139,92,246,0.08);
+    border-color: rgba(139,92,246,0.3);
+    cursor: not-allowed;
+    color: #C9B6FF;
+  }
+  .score-input[readonly] { cursor: not-allowed; }
+  select:disabled, input[readonly] { opacity: 0.7; cursor: not-allowed; }
 
   /* PASSWORD MODAL EXTRAS */
   .password-input {
@@ -621,6 +652,299 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 14px;
+  }
+
+  /* RACE VIEW */
+  .race-view {
+    background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(20,15,40,0.6));
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 24px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    position: relative;
+  }
+  .race-view::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 60px, rgba(255,255,255,0.03) 60px 61px),
+      radial-gradient(circle at 100% 50%, rgba(255,215,0,0.15), transparent 50%);
+    pointer-events: none;
+  }
+  .race-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .race-title {
+    font-size: 28px;
+    font-weight: 900;
+    background: linear-gradient(90deg, #FFD700, #FF6B6B);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -1px;
+    text-shadow: 0 0 30px rgba(255,215,0,0.3);
+  }
+  .race-stage {
+    background: rgba(255,255,255,0.06);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-soft);
+    border: 1px solid var(--border);
+  }
+
+  /* PODIUM */
+  .race-podium {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 12px;
+    margin: 30px 0 36px;
+    align-items: end;
+    position: relative;
+    z-index: 1;
+  }
+  .podium-place {
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px 16px 8px 8px;
+    text-align: center;
+    padding: 18px 12px;
+    position: relative;
+    transition: transform 0.4s;
+  }
+  .podium-place canvas {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid;
+    margin-bottom: 8px;
+    background: rgba(0,0,0,0.3);
+  }
+  .podium-1 {
+    height: 200px;
+    background: linear-gradient(180deg, rgba(255,215,0,0.25), rgba(255,215,0,0.05));
+    border: 2px solid rgba(255,215,0,0.6);
+    box-shadow: 0 0 40px rgba(255,215,0,0.3);
+    transform: translateY(-8px);
+  }
+  .podium-1 canvas { border-color: var(--gold); width: 90px; height: 90px; box-shadow: 0 0 25px rgba(255,215,0,0.5); }
+  .podium-2 {
+    height: 160px;
+    background: linear-gradient(180deg, rgba(192,192,192,0.18), rgba(192,192,192,0.04));
+    border: 2px solid rgba(192,192,192,0.5);
+  }
+  .podium-2 canvas { border-color: silver; }
+  .podium-3 {
+    height: 140px;
+    background: linear-gradient(180deg, rgba(205,127,50,0.18), rgba(205,127,50,0.04));
+    border: 2px solid rgba(205,127,50,0.5);
+  }
+  .podium-3 canvas { border-color: #cd7f32; }
+  .podium-medal {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 36px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+    animation: medalSpin 4s linear infinite;
+  }
+  @keyframes medalSpin { 0%,100% { transform: translateX(-50%) rotate(-8deg);} 50% { transform: translateX(-50%) rotate(8deg);} }
+  .podium-name {
+    font-weight: 800;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  .podium-pts {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-top: 6px;
+  }
+  .podium-pts span { font-size: 11px; color: var(--text-soft); font-weight: 500;}
+
+  /* RACE TRACK */
+  .race-track {
+    background:
+      repeating-linear-gradient(90deg, transparent 0 30px, rgba(255,255,255,0.05) 30px 32px),
+      linear-gradient(180deg, #0d0d1a, #181828);
+    border-radius: 16px;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    z-index: 1;
+  }
+  .track-finish {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    background:
+      repeating-conic-gradient(from 0deg at 50% 50%, #fff 0% 25%, #000 0% 50%);
+    background-size: 14px 14px;
+    border-left: 2px solid var(--gold);
+    z-index: 2;
+    box-shadow: -8px 0 30px rgba(255,215,0,0.15);
+  }
+  .track-finish::before {
+    content: '🏁';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    background: rgba(0,0,0,0.6);
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+  .track-lane {
+    display: grid;
+    grid-template-columns: 50px 1fr 90px;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 12px;
+    border-bottom: 1px dashed rgba(255,255,255,0.08);
+    position: relative;
+    min-height: 70px;
+  }
+  .track-lane:last-child { border-bottom: none; }
+  .track-lane.first {
+    background: linear-gradient(90deg, rgba(255,215,0,0.08), transparent 40%);
+  }
+  .lane-pos {
+    font-size: 20px;
+    font-weight: 900;
+    text-align: center;
+    color: var(--text-soft);
+  }
+  .lane-pos.gold-pos { color: var(--gold); text-shadow: 0 0 12px var(--gold);}
+  .lane-track-bar {
+    position: relative;
+    height: 50px;
+    background:
+      linear-gradient(180deg, transparent 48%, rgba(255,255,255,0.18) 49% 51%, transparent 52%);
+    margin-right: 36px;
+  }
+  .car-wrap {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: left 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .car-avatar {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50%;
+    border: 2px solid;
+    background: rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 2;
+  }
+  .car-wrap.leader .car-avatar {
+    width: 56px !important;
+    height: 56px !important;
+    border-color: var(--gold);
+    box-shadow: 0 0 25px rgba(255,215,0,0.7), 0 0 60px rgba(255,215,0,0.3);
+    animation: leaderPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes leaderPulse { 0%,100% { transform: scale(1);} 50% { transform: scale(1.05);} }
+  .motion-line {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 60px;
+    background: linear-gradient(90deg, transparent, var(--lane-color, var(--gold)) 80%, var(--lane-color, var(--gold)));
+    border-radius: 4px;
+    opacity: 0.8;
+  }
+  .motion-line::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -5px;
+    height: 14px;
+    width: 40px;
+    background: linear-gradient(90deg, transparent, var(--lane-color, var(--gold)));
+    border-radius: 4px;
+    opacity: 0.4;
+  }
+  .car-wrap.leader .motion-line {
+    width: 80px;
+    height: 6px;
+    animation: trailFlicker 0.3s linear infinite;
+  }
+  @keyframes trailFlicker { 0%,100% { opacity: 0.9;} 50% { opacity: 0.6;} }
+  .car-flag {
+    font-size: 18px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .lane-pts {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 10px;
+    text-align: center;
+    margin-right: 36px;
+  }
+  .lane-pts .v { font-size: 20px; font-weight: 900; color: var(--gold); line-height: 1; }
+  .lane-pts .l { font-size: 10px; color: var(--text-soft); text-transform: uppercase; }
+  .lane-name {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    font-size: 11px;
+    color: var(--text-soft);
+    font-weight: 600;
+    background: rgba(0,0,0,0.5);
+    padding: 2px 6px;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+  .race-empty {
+    text-align: center;
+    color: var(--text-mute);
+    padding: 60px 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .race-empty .ico { font-size: 60px; margin-bottom: 12px; }
+
+  @media (max-width: 640px) {
+    .race-podium { grid-template-columns: 1fr 1.2fr 1fr; gap: 6px; }
+    .podium-place { padding: 12px 6px; }
+    .podium-1 canvas { width: 60px; height: 60px; }
+    .podium-place canvas { width: 50px; height: 50px; }
+    .race-title { font-size: 20px; }
+    .track-lane { grid-template-columns: 36px 1fr 60px; gap: 6px; padding: 10px 6px; }
+    .car-avatar { width: 36px !important; height: 36px !important; }
+    .car-wrap.leader .car-avatar { width: 42px !important; height: 42px !important; }
+    .lane-pts { padding: 6px 8px; margin-right: 36px; }
+    .lane-pts .v { font-size: 16px; }
   }
 
   /* RANKING */
@@ -879,8 +1203,9 @@
 
   <!-- RANKING -->
   <section class="panel" id="ranking">
+    <div id="raceView"></div>
     <div class="card">
-      <h2 class="section-title">🏆 Ranking Geral</h2>
+      <h2 class="section-title">📋 Tabela detalhada</h2>
       <p class="section-sub">Atualizado conforme o admin lança os resultados oficiais.</p>
       <div style="font-size:12px;color:var(--text-soft);background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:10px;">
         <strong style="color:var(--gold);">Pontuação:</strong>
@@ -962,6 +1287,12 @@
         <button class="btn btn-ghost" id="btnLockAdmin">🔒 Travar admin</button>
         <button class="btn btn-danger" id="btnReset">🗑️ Resetar tudo</button>
       </div>
+    </div>
+
+    <div class="card">
+      <h3 class="section-title" style="font-size:18px;">🔓 Destravar palpites</h3>
+      <p class="section-sub">Se alguém pediu pra mudar um palpite que já travou, você pode destravar aqui.</p>
+      <div id="lockedListContainer"></div>
     </div>
 
     <div class="card">
@@ -1260,6 +1591,7 @@ function setupFirebaseListeners() {
     state.specialResults = data.specialResults || { champion: null, vice: null, topScorer: "" };
     state.knockoutTeams = data.knockoutTeams || {};
     state.messages = data.messages ? Object.values(data.messages).sort((a,b) => b.createdAt - a.createdAt) : [];
+    state.lockedPhases = data.lockedPhases || {};
     isApplyingRemote = false;
     // Cache local + re-render tudo que estiver visível
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
@@ -1281,6 +1613,7 @@ function pushFullState() {
     specialResults: state.specialResults,
     knockoutTeams: state.knockoutTeams,
     messages: messagesMap,
+    lockedPhases: state.lockedPhases,
   });
 }
 
@@ -1321,7 +1654,12 @@ let state = {
   specialResults: { champion: null, vice: null, topScorer: "" },
   knockoutTeams: {},  // { matchId: { home, away } } - admin pode definir manualmente
   messages: [],       // { id, userId, text, createdAt }
+  lockedPhases: {},   // { userId: { phase: timestamp } } - palpites travados
 };
+
+function isPhaseLocked(userId, phase) {
+  return !!(state.lockedPhases?.[userId]?.[phase]);
+}
 
 function loadState() {
   try {
@@ -1784,6 +2122,7 @@ function renderMatches() {
     return renderSpecialBets(userId);
   }
 
+  const locked = isPhaseLocked(userId, phase);
   if (phase === "grupos") {
     let html = "";
     GROUP_LETTERS.forEach(g => {
@@ -1791,9 +2130,9 @@ function renderMatches() {
       const matches = ALL_MATCHES.filter(m => m.phase === "grupos" && m.group === g);
       html += `
         <div class="card group-block">
-          <div class="group-title">Grupo ${g}</div>
+          <div class="group-title">Grupo ${g} ${locked ? '<span class="lock-badge">🔒 TRANCADO</span>' : ''}</div>
           <div class="group-teams">${GROUPS[g].map(c => `<span>${TEAMS[c].flag} ${TEAMS[c].name}</span>`).join("")}</div>
-          ${matches.map(m => renderMatchRow(m, userPred, false)).join("")}
+          ${matches.map(m => renderMatchRow(m, userPred, false, locked)).join("")}
         </div>
       `;
     });
@@ -1801,7 +2140,7 @@ function renderMatches() {
     cont.innerHTML = html;
   } else {
     const matches = ALL_MATCHES.filter(m => m.phase === phase);
-    cont.innerHTML = `<div class="card"><div class="group-title">${phaseLabel(phase)}</div>${matches.map(m => renderMatchRow(m, userPred, true)).join("")}</div>` + saveBlockHTML(userId, phase);
+    cont.innerHTML = `<div class="card"><div class="group-title">${phaseLabel(phase)} ${locked ? '<span class="lock-badge">🔒 TRANCADO</span>' : ''}</div>${matches.map(m => renderMatchRow(m, userPred, true, locked)).join("")}</div>` + saveBlockHTML(userId, phase);
   }
 
   // Attach handlers
@@ -1809,6 +2148,13 @@ function renderMatches() {
     inp.onchange = () => {
       const mid = inp.dataset.match;
       const side = inp.dataset.side;
+      // Verifica trava
+      const match = ALL_MATCHES.find(m => m.id === mid);
+      if (match && isPhaseLocked(userId, match.phase)) {
+        toast("🔒 Palpites desta fase já estão trancados!", true);
+        renderMatches();
+        return;
+      }
       if (!state.predictions[userId]) state.predictions[userId] = {};
       if (!state.predictions[userId][mid]) state.predictions[userId][mid] = { h: null, a: null };
       const v = parseInt(inp.value);
@@ -1857,10 +2203,16 @@ function renderMatches() {
         return;
       }
       openConfirmModal({
-        title: `${userName}, confirma seus palpites?`,
-        text: `Você preencheu <strong>${count} palpite${count>1?'s':''}</strong> nesta fase. Os dados já estão salvos automaticamente, mas o Silvio quer ter certeza...`,
+        title: `${userName}, confirma e tranca seus palpites?`,
+        text: `Você preencheu <strong>${count} palpite${count>1?'s':''}</strong> nesta fase.<br>⚠️ <strong>Atenção:</strong> depois de confirmar, NÃO dá mais pra mudar! Só o admin pode destravar.`,
         onConfirm: () => {
-          toast(`🎉 Palpites de ${userName} confirmados!`);
+          // TRAVA a fase
+          if (!state.lockedPhases[uid]) state.lockedPhases[uid] = {};
+          state.lockedPhases[uid][phase] = Date.now();
+          saveState();
+          pushPath(`lockedPhases/${uid}/${phase}`, state.lockedPhases[uid][phase]);
+          toast(`🔒 Palpites de ${userName} confirmados e trancados!`);
+          renderMatches();
         }
       });
     };
@@ -1872,6 +2224,7 @@ function phaseLabel(p) {
 }
 
 function saveBlockHTML(userId, phase) {
+  const locked = isPhaseLocked(userId, phase);
   // Conta palpites preenchidos nesta fase
   const preds = state.predictions[userId] || {};
   let count = 0, total = 0;
@@ -1889,18 +2242,32 @@ function saveBlockHTML(userId, phase) {
       if (p && p.h !== null && p.a !== null) count++;
     });
   }
+  if (locked) {
+    const ts = state.lockedPhases[userId][phase];
+    const when = new Date(ts).toLocaleString("pt-BR");
+    return `
+      <div class="save-block locked-block">
+        <div style="font-size:42px;margin-bottom:6px;">🔒</div>
+        <h3>Palpites trancados!</h3>
+        <p>Você confirmou seus palpites em <strong>${when}</strong>.<br>Não dá mais pra mudar — só o admin pode destravar.</p>
+        <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--text-soft);">
+          Palpites confirmados: <strong style="color:var(--green);">${count}/${total}</strong>
+        </div>
+      </div>
+    `;
+  }
   return `
     <div class="save-block">
       <h3>📋 ${count}/${total} palpites preenchidos nesta fase</h3>
-      <p>Já anotou seus palpites? Bora confirmar e mostrar pra galera!</p>
+      <p>⚠️ Atenção: depois de salvar, os palpites desta fase ficam <strong>trancados</strong> e só o admin pode destravar.</p>
       <button class="save-btn-big" data-savephase="${phase}" data-saveuser="${userId}">
-        💾 Salvar Palpites
+        💾 Salvar e trancar palpites
       </button>
     </div>
   `;
 }
 
-function renderMatchRow(m, userPred, allowTeamEdit) {
+function renderMatchRow(m, userPred, allowTeamEdit, locked) {
   const pred = userPred[m.id] || { h: null, a: null };
   const filled = pred.h !== null && pred.a !== null;
   // Para mata-mata, time pode estar definido em state.knockoutTeams ou ser null
@@ -1912,27 +2279,29 @@ function renderMatchRow(m, userPred, allowTeamEdit) {
   const awayT = awayCode ? TEAMS[awayCode] : null;
 
   const dateStr = m.date ? new Date(m.date).toLocaleDateString("pt-BR", { day:"2-digit", month:"short" }) : "";
+  const ro = locked ? "readonly" : "";
+  const lockedClass = locked ? "locked-row" : "";
 
   return `
-    <div class="match-row ${filled ? 'final-set' : ''}">
+    <div class="match-row ${filled ? 'final-set' : ''} ${lockedClass}">
       <div class="team-side">
         ${homeT ?
           `<span class="team-flag">${homeT.flag}</span><span class="team-name">${homeT.name}</span>` :
-          (allowTeamEdit ? `<input type="text" class="ko-team" data-match="${m.id}" data-side="home" value="${koTeams.home || ''}" placeholder="Time (cód)" style="background:transparent;border:1px dashed var(--border);color:var(--text);padding:6px 8px;border-radius:8px;width:100%;font-size:12px;">` : `<span style="color:var(--text-mute);font-size:13px;">${m.label || 'A definir'}</span>`)
+          (allowTeamEdit && !locked ? `<input type="text" class="ko-team" data-match="${m.id}" data-side="home" value="${koTeams.home || ''}" placeholder="Time (cód)" style="background:transparent;border:1px dashed var(--border);color:var(--text);padding:6px 8px;border-radius:8px;width:100%;font-size:12px;">` : `<span style="color:var(--text-mute);font-size:13px;">${koTeams.home && TEAMS[koTeams.home] ? TEAMS[koTeams.home].flag + ' ' + TEAMS[koTeams.home].name : (m.label || 'A definir')}</span>`)
         }
       </div>
       <div>
         <div style="display:flex;gap:6px;align-items:center;justify-content:center;">
-          <input type="number" min="0" max="20" class="score-input" data-match="${m.id}" data-side="h" value="${pred.h ?? ''}" placeholder="-">
+          <input type="number" min="0" max="20" class="score-input" data-match="${m.id}" data-side="h" value="${pred.h ?? ''}" placeholder="-" ${ro}>
           <span style="opacity:.5;">×</span>
-          <input type="number" min="0" max="20" class="score-input" data-match="${m.id}" data-side="a" value="${pred.a ?? ''}" placeholder="-">
+          <input type="number" min="0" max="20" class="score-input" data-match="${m.id}" data-side="a" value="${pred.a ?? ''}" placeholder="-" ${ro}>
         </div>
-        <div class="match-date">${dateStr}</div>
+        <div class="match-date">${locked ? '🔒 trancado' : dateStr}</div>
       </div>
       <div class="team-side right">
         ${awayT ?
           `<span class="team-name">${awayT.name}</span><span class="team-flag">${awayT.flag}</span>` :
-          (allowTeamEdit ? `<input type="text" class="ko-team" data-match="${m.id}" data-side="away" value="${koTeams.away || ''}" placeholder="Time (cód)" style="background:transparent;border:1px dashed var(--border);color:var(--text);padding:6px 8px;border-radius:8px;width:100%;font-size:12px;">` : `<span style="color:var(--text-mute);font-size:13px;">A definir</span>`)
+          (allowTeamEdit && !locked ? `<input type="text" class="ko-team" data-match="${m.id}" data-side="away" value="${koTeams.away || ''}" placeholder="Time (cód)" style="background:transparent;border:1px dashed var(--border);color:var(--text);padding:6px 8px;border-radius:8px;width:100%;font-size:12px;">` : `<span style="color:var(--text-mute);font-size:13px;">${koTeams.away && TEAMS[koTeams.away] ? TEAMS[koTeams.away].flag + ' ' + TEAMS[koTeams.away].name : 'A definir'}</span>`)
         }
       </div>
     </div>
@@ -1976,9 +2345,21 @@ function renderSpecialBets(userId) {
   document.getElementById("sbVice").value = sb.vice || "";
   document.getElementById("sbTopScorer").value = sb.topScorer || "";
 
+  // Se trancado, desabilita os inputs
+  const especiaisLocked = isPhaseLocked(userId, "especiais");
+  if (especiaisLocked) {
+    document.getElementById("sbChampion").disabled = true;
+    document.getElementById("sbVice").disabled = true;
+    document.getElementById("sbTopScorer").readOnly = true;
+  }
   ["sbChampion", "sbVice", "sbTopScorer"].forEach(id => {
     const el = document.getElementById(id);
     el.onchange = el.oninput = () => {
+      if (isPhaseLocked(userId, "especiais")) {
+        toast("🔒 Palpites especiais já trancados!", true);
+        renderMatches();
+        return;
+      }
       if (!state.specialBets[userId]) state.specialBets[userId] = { champion:"", vice:"", topScorer:"" };
       if (id === "sbChampion") state.specialBets[userId].champion = el.value;
       if (id === "sbVice") state.specialBets[userId].vice = el.value;
@@ -2000,10 +2381,15 @@ function renderSpecialBets(userId) {
         return;
       }
       openConfirmModal({
-        title: `${userName}, confirma os palpites de Campeão/Vice/Artilheiro?`,
-        text: `Esses palpites valem até <strong>23 pontos extras</strong>! O Silvio quer ter certeza antes de fechar...`,
+        title: `${userName}, confirma e tranca os especiais?`,
+        text: `Esses palpites valem até <strong>23 pontos extras</strong>!<br>⚠️ Depois de confirmar, NÃO dá mais pra mudar. Só o admin pode destravar.`,
         onConfirm: () => {
-          toast(`🎉 Palpites especiais de ${userName} confirmados!`);
+          if (!state.lockedPhases[uid]) state.lockedPhases[uid] = {};
+          state.lockedPhases[uid].especiais = Date.now();
+          saveState();
+          pushPath(`lockedPhases/${uid}/especiais`, state.lockedPhases[uid].especiais);
+          toast(`🔒 Palpites especiais de ${userName} confirmados e trancados!`);
+          renderMatches();
         }
       });
     };
@@ -2054,9 +2440,136 @@ function calcUserStats(userId) {
 }
 
 /* ============================================================
+   RACE VIEW - Visual de pista de corrida
+   ============================================================ */
+function currentStageLabel() {
+  const totalRes = Object.keys(state.results).length;
+  if (totalRes === 0) return "🚦 Aguardando o pontapé inicial";
+  if (totalRes < 36) return "🟢 Fase de Grupos — Rodada 1";
+  if (totalRes < 60) return "🟡 Fase de Grupos — Reta final";
+  if (totalRes < 72) return "🔵 Fim da Fase de Grupos";
+  if (totalRes < 88) return "🟣 Oitavas Ampliadas";
+  if (totalRes < 96) return "🟠 Oitavas de Final";
+  if (totalRes < 100) return "🔴 Quartas de Final";
+  if (totalRes < 102) return "✨ Semifinais";
+  if (totalRes < 104) return "🏆 Disputas finais";
+  return "🏁 COPA ENCERRADA!";
+}
+
+function renderRace() {
+  const cont = document.getElementById("raceView");
+  if (!cont) return;
+  const ranked = state.participants.map(p => ({
+    ...p,
+    pts: calcUserPoints(p.id),
+    stats: calcUserStats(p.id)
+  })).sort((a,b) => b.pts - a.pts || b.stats.exact - a.stats.exact);
+
+  if (!ranked.length) {
+    cont.innerHTML = `
+      <div class="race-view">
+        <div class="race-header"><div class="race-title">🏁 CORRIDA AO HEXA</div></div>
+        <div class="race-empty"><div class="ico">🏎️</div>Quando a galera começar a apostar, a corrida começa aqui!</div>
+      </div>
+    `;
+    return;
+  }
+
+  const maxPts = Math.max(1, ranked[0].pts); // evita div por zero
+  const top3 = ranked.slice(0, 3);
+  const podium2 = top3[1];
+  const podium1 = top3[0];
+  const podium3 = top3[2];
+
+  cont.innerHTML = `
+    <div class="race-view">
+      <div class="race-header">
+        <div class="race-title">🏁 CORRIDA AO HEXA</div>
+        <div class="race-stage">${currentStageLabel()}</div>
+      </div>
+
+      <div class="race-podium">
+        ${podium2 ? `
+          <div class="podium-place podium-2">
+            <div class="podium-medal">🥈</div>
+            <canvas data-podium="${podium2.id}" width="180" height="180"></canvas>
+            <div class="podium-name">${escapeHtml(podium2.name)} ${TEAMS[podium2.team]?.flag || ''}</div>
+            <div class="podium-pts">${podium2.pts}<span> pts</span></div>
+          </div>
+        ` : `<div></div>`}
+        ${podium1 ? `
+          <div class="podium-place podium-1">
+            <div class="podium-medal">🥇</div>
+            <canvas data-podium="${podium1.id}" width="180" height="180"></canvas>
+            <div class="podium-name">${escapeHtml(podium1.name)} ${TEAMS[podium1.team]?.flag || ''}</div>
+            <div class="podium-pts">${podium1.pts}<span> pts</span></div>
+          </div>
+        ` : `<div></div>`}
+        ${podium3 ? `
+          <div class="podium-place podium-3">
+            <div class="podium-medal">🥉</div>
+            <canvas data-podium="${podium3.id}" width="180" height="180"></canvas>
+            <div class="podium-name">${escapeHtml(podium3.name)} ${TEAMS[podium3.team]?.flag || ''}</div>
+            <div class="podium-pts">${podium3.pts}<span> pts</span></div>
+          </div>
+        ` : `<div></div>`}
+      </div>
+
+      <div class="race-track">
+        <div class="track-finish"></div>
+        ${ranked.map((p, i) => {
+          const isLeader = i === 0;
+          const ratio = maxPts > 0 ? p.pts / maxPts : 0;
+          // Posição vai de 4% até 88% (deixa espaço para finish line a 95%)
+          const leftPct = 4 + ratio * 84;
+          const tColor = teamColor(p.team);
+          return `
+            <div class="track-lane ${isLeader ? 'first' : ''}">
+              <div class="lane-pos ${isLeader ? 'gold-pos' : ''}">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '#'+(i+1)}</div>
+              <div class="lane-track-bar">
+                <div class="car-wrap ${isLeader ? 'leader' : ''}" style="left: ${leftPct}%; --lane-color: ${tColor};">
+                  <span class="motion-line"></span>
+                  <canvas data-race-avatar="${p.id}" class="car-avatar" width="120" height="120" style="border-color: ${tColor};"></canvas>
+                  <span class="car-flag">${TEAMS[p.team]?.flag || '⚽'}</span>
+                </div>
+                <div class="lane-name">${escapeHtml(p.name)}${i > 0 && p.pts > 0 ? ' • -' + (ranked[0].pts - p.pts) + ' do líder' : ''}</div>
+              </div>
+              <div class="lane-pts">
+                <div class="v">${p.pts}</div>
+                <div class="l">pts</div>
+              </div>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+
+  // Desenha avatares no pódio
+  cont.querySelectorAll("canvas[data-podium]").forEach(c => {
+    const u = state.participants.find(p => p.id === c.dataset.podium);
+    if (u?.avatarData) {
+      const img = new Image();
+      img.onload = () => c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      img.src = u.avatarData;
+    }
+  });
+  // Desenha avatares nos carrinhos
+  cont.querySelectorAll("canvas[data-race-avatar]").forEach(c => {
+    const u = state.participants.find(p => p.id === c.dataset.raceAvatar);
+    if (u?.avatarData) {
+      const img = new Image();
+      img.onload = () => c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      img.src = u.avatarData;
+    }
+  });
+}
+
+/* ============================================================
    RANKING
    ============================================================ */
 function renderRanking() {
+  renderRace();
   const list = document.getElementById("rankingList");
   const ranked = state.participants.map(p => ({ ...p, pts: calcUserPoints(p.id), stats: calcUserStats(p.id) }))
     .sort((a,b) => b.pts - a.pts || b.stats.exact - a.stats.exact);
@@ -2279,7 +2792,68 @@ document.getElementById("btnReset").onclick = () => {
   }
 };
 
+function renderLockedList() {
+  const cont = document.getElementById("lockedListContainer");
+  if (!cont) return;
+  const entries = [];
+  Object.entries(state.lockedPhases || {}).forEach(([userId, phases]) => {
+    Object.entries(phases || {}).forEach(([phase, ts]) => {
+      if (ts) entries.push({ userId, phase, ts });
+    });
+  });
+  if (!entries.length) {
+    cont.innerHTML = `<div class="empty" style="padding:20px;"><div class="ico" style="font-size:32px;">✅</div>Nenhuma fase trancada por enquanto.</div>`;
+    return;
+  }
+  cont.innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      ${entries.map(e => {
+        const u = state.participants.find(p => p.id === e.userId);
+        if (!u) return "";
+        const when = new Date(e.ts).toLocaleString("pt-BR");
+        return `
+          <div style="display:flex;align-items:center;gap:14px;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);padding:10px 14px;border-radius:12px;flex-wrap:wrap;">
+            <canvas data-locked-avatar="${u.id}" width="80" height="80" style="width:40px;height:40px;border-radius:50%;border:2px solid #B8A2FF;"></canvas>
+            <div style="flex:1;min-width:140px;">
+              <div style="font-weight:700;">${escapeHtml(u.name)} ${TEAMS[u.team]?.flag || ''}</div>
+              <div style="font-size:12px;color:var(--text-soft);">${phaseLabel(e.phase)} • trancou em ${when}</div>
+            </div>
+            <button class="btn btn-ghost" data-unlock="${e.userId}|${e.phase}">🔓 Destravar</button>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+  // desenha avatars
+  cont.querySelectorAll("canvas[data-locked-avatar]").forEach(c => {
+    const u = state.participants.find(p => p.id === c.dataset.lockedAvatar);
+    if (u?.avatarData) {
+      const img = new Image();
+      img.onload = () => c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      img.src = u.avatarData;
+    }
+  });
+  // attach unlock handlers
+  cont.querySelectorAll("[data-unlock]").forEach(btn => {
+    btn.onclick = () => {
+      const [userId, phase] = btn.dataset.unlock.split("|");
+      const user = state.participants.find(p => p.id === userId);
+      const userName = user ? user.name : "esse participante";
+      if (!confirm(`Destravar palpites de ${phaseLabel(phase)} de ${userName}? Ele(a) vai poder editar de novo.`)) return;
+      if (state.lockedPhases[userId]) {
+        delete state.lockedPhases[userId][phase];
+        if (Object.keys(state.lockedPhases[userId]).length === 0) delete state.lockedPhases[userId];
+      }
+      saveState();
+      pushPath(`lockedPhases/${userId}/${phase}`, null);
+      toast(`🔓 ${userName} já pode editar os palpites de ${phaseLabel(phase)}!`);
+      renderLockedList();
+    };
+  });
+}
+
 function renderAdminMatches() {
+  renderLockedList();
   const cont = document.getElementById("adminMatchesContainer");
   const phase = document.getElementById("adminPhase").value;
 
