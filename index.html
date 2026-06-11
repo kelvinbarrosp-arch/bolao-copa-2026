@@ -202,6 +202,200 @@
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
   }
 
+  /* RULES CARD */
+  .rules-card {
+    background: linear-gradient(135deg, rgba(255,215,0,0.06), rgba(139,92,246,0.06));
+    border: 1px solid rgba(255,215,0,0.2);
+  }
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 18px 0;
+  }
+  .rule-box {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 18px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s;
+  }
+  .rule-box:hover { transform: translateY(-4px); }
+  .rule-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--accent);
+  }
+  .rule-exact { --accent: var(--green); }
+  .rule-winner { --accent: var(--gold); }
+  .rule-miss { --accent: var(--red); }
+  .rule-pts {
+    font-size: 64px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    text-shadow: 0 0 30px var(--accent);
+  }
+  .rule-label {
+    font-size: 12px;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 4px 0 12px;
+  }
+  .rule-desc {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .rules-bonus {
+    background: rgba(255,215,0,0.08);
+    border: 1px dashed rgba(255,215,0,0.3);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text-soft);
+    text-align: center;
+  }
+
+  /* MODAL */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+    animation: fadeBackdrop 0.25s ease;
+  }
+  .modal-backdrop.show { display: flex; }
+  @keyframes fadeBackdrop { from { opacity: 0; } to { opacity: 1; } }
+  .modal-box {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 2px solid var(--gold);
+    border-radius: 24px;
+    padding: 32px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.2);
+    animation: modalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-align: center;
+  }
+  @keyframes modalIn { from { transform: scale(0.7) translateY(40px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+  .modal-box h3 {
+    font-size: 22px;
+    margin: 14px 0 6px;
+    color: var(--gold);
+  }
+  .modal-box p {
+    color: var(--text-soft);
+    font-size: 15px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .modal-actions button {
+    min-width: 140px;
+  }
+  /* SILVIO MEME */
+  .silvio-meme {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    position: relative;
+    animation: silvioBob 2s ease-in-out infinite;
+  }
+  @keyframes silvioBob { 0%,100% { transform: rotate(-2deg);} 50% { transform: rotate(2deg);} }
+  .silvio-bubble {
+    background: #fff;
+    color: #000;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 18px;
+    display: inline-block;
+    margin-top: -10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  .silvio-bubble::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #fff;
+  }
+
+  /* SAVE PALPITES BUTTON BLOCK */
+  .save-block {
+    background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(0,200,150,0.1));
+    border: 2px solid rgba(255,215,0,0.4);
+    border-radius: 18px;
+    padding: 24px;
+    text-align: center;
+    margin-top: 16px;
+  }
+  .save-block h3 { color: var(--gold); margin-bottom: 6px; }
+  .save-block p { color: var(--text-soft); font-size: 13px; margin-bottom: 14px; }
+  .save-btn-big {
+    background: linear-gradient(135deg, #00C896, #00A07A);
+    color: white;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0,200,150,0.3);
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .save-btn-big:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,200,150,0.5); }
+
+  /* PASSWORD MODAL EXTRAS */
+  .password-input {
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    border: 2px solid var(--border);
+    color: var(--text);
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 22px;
+    font-family: monospace;
+    text-align: center;
+    letter-spacing: 8px;
+    margin-bottom: 16px;
+  }
+  .password-input:focus { outline: none; border-color: var(--gold); }
+  .password-error {
+    color: var(--red);
+    font-size: 13px;
+    margin-bottom: 12px;
+    min-height: 18px;
+  }
+
   /* FORM */
   .form-grid {
     display: grid;
@@ -582,6 +776,31 @@
 
   <!-- PARTICIPANTES -->
   <section class="panel active" id="participantes">
+    <div class="card rules-card">
+      <h2 class="section-title">📜 Como funciona a pontuação</h2>
+      <p class="section-sub">Simples e direto, do jeito que tem que ser:</p>
+      <div class="rules-grid">
+        <div class="rule-box rule-exact">
+          <div class="rule-pts">3</div>
+          <div class="rule-label">pontos</div>
+          <div class="rule-desc">Acertou o <strong>placar exato</strong> do jogo</div>
+        </div>
+        <div class="rule-box rule-winner">
+          <div class="rule-pts">1</div>
+          <div class="rule-label">ponto</div>
+          <div class="rule-desc">Acertou o <strong>vencedor</strong> mas errou o placar</div>
+        </div>
+        <div class="rule-box rule-miss">
+          <div class="rule-pts">0</div>
+          <div class="rule-label">pontos</div>
+          <div class="rule-desc">Errou o vencedor — <strong>foi mal!</strong></div>
+        </div>
+      </div>
+      <div class="rules-bonus">
+        🎁 <strong>Bônus de fim de Copa:</strong> Campeão = +10 pts • Vice = +5 pts • Artilheiro = +8 pts
+      </div>
+    </div>
+
     <div class="card">
       <h2 class="section-title">🎯 Entre no Bolão</h2>
       <p class="section-sub">Cadastre-se, escolha sua seleção e gere seu avatar com a camisa do time!</p>
@@ -665,13 +884,10 @@
       <p class="section-sub">Atualizado conforme o admin lança os resultados oficiais.</p>
       <div style="font-size:12px;color:var(--text-soft);background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:10px;">
         <strong style="color:var(--gold);">Pontuação:</strong>
-        Placar exato = <strong>10 pts</strong> &nbsp;•&nbsp;
-        Vencedor + saldo = <strong>7 pts</strong> &nbsp;•&nbsp;
-        Só o vencedor = <strong>5 pts</strong> &nbsp;•&nbsp;
-        Empate sem placar = <strong>3 pts</strong> &nbsp;•&nbsp;
-        Campeão = <strong>25 pts</strong> &nbsp;•&nbsp;
-        Vice = <strong>15 pts</strong> &nbsp;•&nbsp;
-        Artilheiro = <strong>20 pts</strong>
+        Placar exato = <strong>3 pts</strong> &nbsp;•&nbsp;
+        Acertou só o vencedor = <strong>1 pt</strong> &nbsp;•&nbsp;
+        Errou = <strong>0 pts</strong> &nbsp;•&nbsp;
+        <span style="opacity:0.7;">Bônus de fim de Copa: Campeão = 10 • Vice = 5 • Artilheiro = 8</span>
       </div>
     </div>
     <div class="ranking-list" id="rankingList"></div>
@@ -743,6 +959,7 @@
           <input type="file" id="importFile" accept=".json" style="display:none;">
         </label>
         <button class="btn btn-ghost" id="btnRecalc">🔄 Recalcular ranking</button>
+        <button class="btn btn-ghost" id="btnLockAdmin">🔒 Travar admin</button>
         <button class="btn btn-danger" id="btnReset">🗑️ Resetar tudo</button>
       </div>
     </div>
@@ -764,6 +981,71 @@
       <div id="adminMatchesContainer"></div>
     </div>
   </section>
+</div>
+
+<!-- MODAL: Confirmação Silvio Santos -->
+<div class="modal-backdrop" id="confirmModal">
+  <div class="modal-box">
+    <div class="silvio-meme">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Fundo amarelo SBT -->
+        <circle cx="100" cy="100" r="95" fill="#FFD700" stroke="#000" stroke-width="3"/>
+        <!-- Terno preto -->
+        <path d="M 40 200 L 55 130 L 100 115 L 145 130 L 160 200 Z" fill="#1a1a1a"/>
+        <!-- Camisa branca -->
+        <path d="M 85 130 L 100 115 L 115 130 L 110 160 L 100 145 L 90 160 Z" fill="#fff"/>
+        <!-- Gravata vermelha -->
+        <path d="M 96 130 L 104 130 L 106 175 L 100 185 L 94 175 Z" fill="#dc143c"/>
+        <!-- Cabeça -->
+        <ellipse cx="100" cy="80" rx="42" ry="48" fill="#f4c896"/>
+        <!-- Cabelo branco -->
+        <path d="M 58 75 Q 60 30 100 28 Q 140 30 142 75 Q 140 55 100 50 Q 60 55 58 75 Z" fill="#fff" stroke="#ccc" stroke-width="1"/>
+        <!-- Sombrancelhas -->
+        <path d="M 75 68 Q 82 65 90 68" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M 110 68 Q 118 65 125 68" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- Óculos -->
+        <circle cx="82" cy="80" r="11" stroke="#000" stroke-width="2.5" fill="rgba(255,255,255,0.15)"/>
+        <circle cx="118" cy="80" r="11" stroke="#000" stroke-width="2.5" fill="rgba(255,255,255,0.15)"/>
+        <line x1="93" y1="80" x2="107" y2="80" stroke="#000" stroke-width="2.5"/>
+        <!-- Olhos dentro dos óculos -->
+        <circle cx="82" cy="80" r="3" fill="#1a3d1a"/>
+        <circle cx="118" cy="80" r="3" fill="#1a3d1a"/>
+        <!-- Nariz -->
+        <path d="M 100 85 Q 98 95 100 100 Q 102 95 100 85" fill="#e0a878" stroke="#a07050" stroke-width="0.5"/>
+        <!-- Sorriso largo característico -->
+        <path d="M 78 108 Q 100 125 122 108" stroke="#000" stroke-width="2.5" fill="#8b1a1a" stroke-linecap="round"/>
+        <path d="M 82 110 Q 100 120 118 110" fill="#fff"/>
+        <!-- Microfone -->
+        <line x1="155" y1="115" x2="170" y2="95" stroke="#222" stroke-width="3"/>
+        <ellipse cx="173" cy="92" rx="9" ry="11" fill="#666" stroke="#222" stroke-width="2"/>
+        <ellipse cx="173" cy="92" rx="6" ry="8" fill="#999"/>
+        <!-- Brilho no rosto -->
+        <ellipse cx="75" cy="65" rx="5" ry="3" fill="#fff" opacity="0.4"/>
+      </svg>
+    </div>
+    <div class="silvio-bubble">"Mas você tem certeza disso?"</div>
+    <h3 id="modalTitle">Confirma seus palpites?</h3>
+    <p id="modalText">Depois de confirmar, seus palpites vão pro placar oficial. Quem não arrisca, não petisca!</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="modalCancel">😅 Espera, deixa eu rever</button>
+      <button class="btn" id="modalConfirm" style="background:linear-gradient(135deg,#00C896,#00A07A);color:white;">🎯 Confirma aí, Silvio!</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Senha do Admin -->
+<div class="modal-backdrop" id="adminModal">
+  <div class="modal-box">
+    <div style="font-size:64px;">🔐</div>
+    <h3>Área restrita</h3>
+    <p>Esta aba é só pro administrador do bolão. Digite a senha pra continuar.</p>
+    <input type="password" class="password-input" id="adminPassword" placeholder="••••••" maxlength="10" autocomplete="off">
+    <div class="password-error" id="adminPasswordError"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="adminCancel">Cancelar</button>
+      <button class="btn" id="adminUnlock">🔓 Entrar</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -1291,6 +1573,11 @@ function updateCountdown() {
    ============================================================ */
 document.querySelectorAll(".tab-btn").forEach(b => {
   b.onclick = () => {
+    // Aba Admin exige senha
+    if (b.dataset.tab === "admin" && !isAdminUnlocked()) {
+      openAdminModal();
+      return;
+    }
     document.querySelectorAll(".tab-btn").forEach(x => x.classList.remove("active"));
     document.querySelectorAll(".panel").forEach(x => x.classList.remove("active"));
     b.classList.add("active");
@@ -1510,10 +1797,11 @@ function renderMatches() {
         </div>
       `;
     });
+    html += saveBlockHTML(userId, phase);
     cont.innerHTML = html;
   } else {
     const matches = ALL_MATCHES.filter(m => m.phase === phase);
-    cont.innerHTML = `<div class="card"><div class="group-title">${phaseLabel(phase)}</div>${matches.map(m => renderMatchRow(m, userPred, true)).join("")}</div>`;
+    cont.innerHTML = `<div class="card"><div class="group-title">${phaseLabel(phase)}</div>${matches.map(m => renderMatchRow(m, userPred, true)).join("")}</div>` + saveBlockHTML(userId, phase);
   }
 
   // Attach handlers
@@ -1543,10 +1831,73 @@ function renderMatches() {
       pushPath(`knockoutTeams/${mid}`, state.knockoutTeams[mid]);
     };
   });
+  // Botão Salvar Palpites
+  cont.querySelectorAll("[data-savephase]").forEach(btn => {
+    btn.onclick = () => {
+      const phase = btn.dataset.savephase;
+      const uid = btn.dataset.saveuser;
+      const user = state.participants.find(p => p.id === uid);
+      const userName = user ? user.name : "Você";
+      // Conta palpites
+      const preds = state.predictions[uid] || {};
+      let count = 0;
+      if (phase === "especiais") {
+        const sb = state.specialBets[uid] || {};
+        if (sb.champion) count++;
+        if (sb.vice) count++;
+        if (sb.topScorer) count++;
+      } else {
+        ALL_MATCHES.filter(m => m.phase === phase).forEach(m => {
+          const p = preds[m.id];
+          if (p && p.h !== null && p.a !== null) count++;
+        });
+      }
+      if (count === 0) {
+        toast("⚠️ Preenche pelo menos um palpite primeiro!", true);
+        return;
+      }
+      openConfirmModal({
+        title: `${userName}, confirma seus palpites?`,
+        text: `Você preencheu <strong>${count} palpite${count>1?'s':''}</strong> nesta fase. Os dados já estão salvos automaticamente, mas o Silvio quer ter certeza...`,
+        onConfirm: () => {
+          toast(`🎉 Palpites de ${userName} confirmados!`);
+        }
+      });
+    };
+  });
 }
 
 function phaseLabel(p) {
-  return { r32: "🔥 Oitavas Ampliadas (32→16)", r16: "🎯 Oitavas de Final", qf: "⚡ Quartas de Final", sf: "🌟 Semifinais", final: "🏆 Decisão" }[p] || p;
+  return { r32: "🔥 Oitavas Ampliadas (32→16)", r16: "🎯 Oitavas de Final", qf: "⚡ Quartas de Final", sf: "🌟 Semifinais", final: "🏆 Decisão", grupos: "Fase de Grupos", especiais: "Palpites Especiais" }[p] || p;
+}
+
+function saveBlockHTML(userId, phase) {
+  // Conta palpites preenchidos nesta fase
+  const preds = state.predictions[userId] || {};
+  let count = 0, total = 0;
+  if (phase === "especiais") {
+    const sb = state.specialBets[userId] || {};
+    if (sb.champion) count++;
+    if (sb.vice) count++;
+    if (sb.topScorer) count++;
+    total = 3;
+  } else {
+    const phaseMatches = ALL_MATCHES.filter(m => m.phase === phase);
+    total = phaseMatches.length;
+    phaseMatches.forEach(m => {
+      const p = preds[m.id];
+      if (p && p.h !== null && p.a !== null) count++;
+    });
+  }
+  return `
+    <div class="save-block">
+      <h3>📋 ${count}/${total} palpites preenchidos nesta fase</h3>
+      <p>Já anotou seus palpites? Bora confirmar e mostrar pra galera!</p>
+      <button class="save-btn-big" data-savephase="${phase}" data-saveuser="${userId}">
+        💾 Salvar Palpites
+      </button>
+    </div>
+  `;
 }
 
 function renderMatchRow(m, userPred, allowTeamEdit) {
@@ -1597,30 +1948,30 @@ function renderSpecialBets(userId) {
 
   cont.innerHTML = `
     <div class="card">
-      <div class="group-title">🏆 Palpites Especiais (alto valor!)</div>
-      <p style="color:var(--text-soft);font-size:13px;margin-bottom:18px;">Esses palpites valem muitos pontos no final. Mande bem!</p>
+      <div class="group-title">🏆 Palpites Especiais (bônus de fim de Copa)</div>
+      <p style="color:var(--text-soft);font-size:13px;margin-bottom:18px;">Esses palpites valem pontos extras no final. Mande bem!</p>
       <div class="special-bets">
         <div>
-          <label>🏆 Campeão da Copa (25 pts)</label>
+          <label>🏆 Campeão da Copa (10 pts bônus)</label>
           <select id="sbChampion">
             <option value="">Quem leva o caneco?</option>
             ${teamOptions}
           </select>
         </div>
         <div>
-          <label>🥈 Vice-campeão (15 pts)</label>
+          <label>🥈 Vice-campeão (5 pts bônus)</label>
           <select id="sbVice">
             <option value="">Quem fica chorando na 2ª?</option>
             ${teamOptions}
           </select>
         </div>
         <div>
-          <label>⚽ Artilheiro da Copa (20 pts)</label>
+          <label>⚽ Artilheiro da Copa (8 pts bônus)</label>
           <input type="text" id="sbTopScorer" placeholder="Ex: Vinicius Jr." maxlength="40">
         </div>
       </div>
     </div>
-  `;
+  ` + saveBlockHTML(userId, "especiais");
   document.getElementById("sbChampion").value = sb.champion || "";
   document.getElementById("sbVice").value = sb.vice || "";
   document.getElementById("sbTopScorer").value = sb.topScorer || "";
@@ -1636,6 +1987,27 @@ function renderSpecialBets(userId) {
       pushPath(`specialBets/${userId}`, state.specialBets[userId]);
     };
   });
+  // Botão Salvar nos especiais
+  cont.querySelectorAll("[data-savephase]").forEach(btn => {
+    btn.onclick = () => {
+      const uid = btn.dataset.saveuser;
+      const user = state.participants.find(p => p.id === uid);
+      const userName = user ? user.name : "Você";
+      const sb = state.specialBets[uid] || {};
+      const count = (sb.champion ? 1 : 0) + (sb.vice ? 1 : 0) + (sb.topScorer ? 1 : 0);
+      if (count === 0) {
+        toast("⚠️ Preenche pelo menos um palpite especial!", true);
+        return;
+      }
+      openConfirmModal({
+        title: `${userName}, confirma os palpites de Campeão/Vice/Artilheiro?`,
+        text: `Esses palpites valem até <strong>23 pontos extras</strong>! O Silvio quer ter certeza antes de fechar...`,
+        onConfirm: () => {
+          toast(`🎉 Palpites especiais de ${userName} confirmados!`);
+        }
+      });
+    };
+  });
 }
 
 /* ============================================================
@@ -1645,15 +2017,11 @@ function scoreMatch(pred, real) {
   if (!pred || pred.h === null || pred.a === null) return 0;
   if (!real || real.h === null || real.a === null) return 0;
   // Placar exato
-  if (pred.h === real.h && pred.a === real.a) return 10;
+  if (pred.h === real.h && pred.a === real.a) return 3;
   const predDiff = pred.h - pred.a;
   const realDiff = real.h - real.a;
-  // Acertou vencedor + saldo de gols
-  if (Math.sign(predDiff) === Math.sign(realDiff) && predDiff === realDiff && realDiff !== 0) return 7;
-  // Empate sem placar exato
-  if (predDiff === 0 && realDiff === 0) return 3;
-  // Só o vencedor
-  if (Math.sign(predDiff) === Math.sign(realDiff) && realDiff !== 0) return 5;
+  // Acertou o vencedor (incluindo empate) mas errou o placar
+  if (Math.sign(predDiff) === Math.sign(realDiff)) return 1;
   return 0;
 }
 
@@ -1663,27 +2031,26 @@ function calcUserPoints(userId) {
   Object.keys(state.results).forEach(mid => {
     total += scoreMatch(preds[mid], state.results[mid]);
   });
-  // Especiais
+  // Especiais (bônus de fim de Copa)
   const sb = state.specialBets[userId] || {};
   const sr = state.specialResults || {};
-  if (sb.champion && sr.champion && sb.champion === sr.champion) total += 25;
-  if (sb.vice && sr.vice && sb.vice === sr.vice) total += 15;
-  if (sb.topScorer && sr.topScorer && sb.topScorer.toLowerCase().trim() === sr.topScorer.toLowerCase().trim()) total += 20;
+  if (sb.champion && sr.champion && sb.champion === sr.champion) total += 10;
+  if (sb.vice && sr.vice && sb.vice === sr.vice) total += 5;
+  if (sb.topScorer && sr.topScorer && sb.topScorer.toLowerCase().trim() === sr.topScorer.toLowerCase().trim()) total += 8;
   return total;
 }
 
 function calcUserStats(userId) {
-  let exact = 0, winner = 0, draw = 0, miss = 0, totalScored = 0;
+  let exact = 0, winner = 0, miss = 0, totalScored = 0;
   const preds = state.predictions[userId] || {};
   Object.keys(state.results).forEach(mid => {
     const s = scoreMatch(preds[mid], state.results[mid]);
     totalScored++;
-    if (s === 10) exact++;
-    else if (s === 7 || s === 5) winner++;
-    else if (s === 3) draw++;
+    if (s === 3) exact++;
+    else if (s === 1) winner++;
     else miss++;
   });
-  return { exact, winner, draw, miss, totalScored, predsCount: Object.values(preds).filter(p => p.h !== null && p.a !== null).length };
+  return { exact, winner, miss, totalScored, predsCount: Object.values(preds).filter(p => p.h !== null && p.a !== null).length };
 }
 
 /* ============================================================
@@ -1896,6 +2263,11 @@ document.getElementById("adminPhase").onchange = renderAdminMatches;
 document.getElementById("btnExport").onclick = exportData;
 document.getElementById("importFile").onchange = importData;
 document.getElementById("btnRecalc").onclick = () => { renderRanking(); renderParticipants(); toast("Ranking recalculado!"); };
+document.getElementById("btnLockAdmin").onclick = () => {
+  lockAdmin();
+  toast("🔒 Admin travado. Use a senha pra acessar de novo.");
+  document.querySelector('.tab-btn[data-tab="participantes"]').click();
+};
 document.getElementById("btnReset").onclick = () => {
   if (!confirm("Apagar TUDO? (participantes, palpites, resultados, mensagens)")) return;
   if (!confirm("Tem certeza mesmo? Isso não pode ser desfeito.")) return;
@@ -2068,6 +2440,87 @@ function spawnFloatingBalls() {
     cont.appendChild(s);
   }
 }
+
+/* ============================================================
+   MODAL - SILVIO SANTOS / CONFIRMAÇÃO
+   ============================================================ */
+let pendingConfirm = null;
+function openConfirmModal({ title, text, onConfirm }) {
+  document.getElementById("modalTitle").textContent = title || "Você tem certeza?";
+  document.getElementById("modalText").innerHTML = text || "";
+  pendingConfirm = onConfirm;
+  document.getElementById("confirmModal").classList.add("show");
+}
+function closeConfirmModal() {
+  document.getElementById("confirmModal").classList.remove("show");
+  pendingConfirm = null;
+}
+document.getElementById("modalCancel").onclick = closeConfirmModal;
+document.getElementById("modalConfirm").onclick = () => {
+  const cb = pendingConfirm;
+  closeConfirmModal();
+  if (cb) cb();
+};
+// Fecha modal clicando no fundo
+document.getElementById("confirmModal").onclick = (e) => {
+  if (e.target.id === "confirmModal") closeConfirmModal();
+};
+
+/* ============================================================
+   ADMIN - PROTEÇÃO POR SENHA
+   ============================================================ */
+const ADMIN_PASSWORD = "532478";
+const ADMIN_UNLOCK_KEY = "bolao_admin_unlocked";
+
+function isAdminUnlocked() {
+  return sessionStorage.getItem(ADMIN_UNLOCK_KEY) === "1";
+}
+function unlockAdmin() {
+  sessionStorage.setItem(ADMIN_UNLOCK_KEY, "1");
+}
+function lockAdmin() {
+  sessionStorage.removeItem(ADMIN_UNLOCK_KEY);
+}
+
+function openAdminModal() {
+  const modal = document.getElementById("adminModal");
+  const pw = document.getElementById("adminPassword");
+  const err = document.getElementById("adminPasswordError");
+  pw.value = "";
+  err.textContent = "";
+  modal.classList.add("show");
+  setTimeout(() => pw.focus(), 100);
+}
+function closeAdminModal() {
+  document.getElementById("adminModal").classList.remove("show");
+}
+
+document.getElementById("adminCancel").onclick = () => {
+  closeAdminModal();
+  // Volta pra aba Participantes
+  document.querySelector('.tab-btn[data-tab="participantes"]').click();
+};
+document.getElementById("adminUnlock").onclick = () => {
+  const pw = document.getElementById("adminPassword").value;
+  const err = document.getElementById("adminPasswordError");
+  if (pw === ADMIN_PASSWORD) {
+    unlockAdmin();
+    closeAdminModal();
+    toast("🔓 Acesso liberado!");
+    // Agora ativa a aba admin
+    document.querySelector('.tab-btn[data-tab="admin"]').click();
+  } else {
+    err.textContent = "🚫 Senha incorreta. Tenta de novo.";
+    document.getElementById("adminPassword").value = "";
+  }
+};
+document.getElementById("adminPassword").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") document.getElementById("adminUnlock").click();
+  if (e.key === "Escape") document.getElementById("adminCancel").click();
+});
+document.getElementById("adminModal").onclick = (e) => {
+  if (e.target.id === "adminModal") document.getElementById("adminCancel").click();
+};
 
 /* ============================================================
    INIT
